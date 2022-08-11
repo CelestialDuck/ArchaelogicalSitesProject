@@ -6,15 +6,17 @@ h1 {
 }
 
 body {
-	background-color: blue;
+	background-color: #0492c2;
 
 }
 
 #info{
 	float:right;
 	width:55%;
-	height:200px;
+	height: 500px;
 	border: 10px solid black;
+	margin-right:5px;
+	margin-top: 5px;
 	background:white;
 }
 #map{ 
@@ -23,4 +25,14 @@ body {
 	height: 675px;
 	border: 10px solid black;
 	margin: 5px;
+}
+ 
+#interact{
+ 	float:left;
+ 	width: 55%;
+ 	height: 150px;
+ 	border: 10px solid black;
+ 	background:white;
+ 	margin-top: 5px;
+ 	margin-left: 13px;
  }

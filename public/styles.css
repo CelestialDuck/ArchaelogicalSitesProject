@@ -1,5 +1,6 @@
 h1 {
 	text-align: center;
+	text-transform: uppercase;
 	border: 5px solid black;
 	margin: 5px;
 	color: white;
@@ -8,6 +9,14 @@ h1 {
 body {
 	background-color: #0492c2;
 
+}
+
+label {
+	text-transform: uppercase;
+	margin-left: 5px;
+	margin-top: 10px;
+	letter-spacing: 1px;
+	font-size: 25px;
 }
 
 #info{

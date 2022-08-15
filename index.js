@@ -20,7 +20,7 @@ CSVToJSON().fromFile('data/pyramids.csv').then(response => {
 		const entry = {
 			'latitude': item.Latitude, 
 			'longitude' : item.Longitude,
-			'pharoah': item.Pharoah,
+			'pharaoh': item.Pharaoh,
 			'ancientname': item.AncientName,
 			'modernname': item.ModernName,
 			'dynasty': item.Dynasty,

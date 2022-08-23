@@ -1,4 +1,3 @@
-
 //LEAFLET MAP SET UP//
 const myMap = L.map("map").setView([29,31], 6);
 
@@ -7,31 +6,38 @@ const attribution = "&copy; <a href='https://www.openstreetmap.org/copyright'>Op
 const tile_url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const tiles = L.tileLayer(tile_url, { attribution }); 
 tiles.addTo(myMap);
-//const api_url = "https://api.wheretheiss.at/v1/satellites/25544";
+const rectangles = L.layerGroup([], {attribution }).addTo(myMap);
 
 
 const interaction_div_dynasty = document.getElementById("dynasty");
 const interaction_div_pharaoh = document.getElementById("pharaoh");
 
+const information_div =  document.getElementById("info");
+
 const pharaohList = [];
 const dynastyList = [];
 
-var currentDynasty;
-var currentPharaoh;
+/*const highlightGroup = L.layergroup();*/ 
+
+
 const pyramid_icon = L.icon({
 	iconUrl: 'map_icons/pyramid_icon.png',
 	iconSize: [20, 20],
 	iconAnchor: [10,10]
 });
 
+
 getmap();
 getddl();
-            
+
+interaction_div_dynasty.addEventListener("change", dynastyChange);
+interaction_div_pharaoh.addEventListener("change", pharaohChange);
+
 async function getmap(){
         const response = await fetch('/api');
-                
         const data = await response.json();
        	for (item of data){
+       		const information_string = "LOREM IPSUM TEXT";
        		//variables in use
        		const tooltip_string = "<h2>"+
        		item.modernname+
@@ -45,6 +51,11 @@ async function getmap(){
        		item.location+
        		"</p>";
        		
+       		const long = parseFloat(item.longitude);
+       		const lat = parseFloat(item.latitude);
+       		
+       		const rectangle_points = [[lat + 0.25, long - 0.25] , [lat - 0.25, long + 0.25]];
+       		
        		if(!dynastyList.includes(item.dynasty)){
        			dynastyList.push(item.dynasty);
        		} 
@@ -53,15 +64,38 @@ async function getmap(){
        			pharaohList.push(item.pharaoh);
        		}
        		
-       			
        		//Add each database entry to the map div//
        		const marker = L.marker(
        			[item.latitude, item.longitude], 	//LAT + LON
-       			{icon: pyramid_icon}).bindTooltip(	//ICON
+       			{
+       			icon: pyramid_icon,
+			opacity: 1.0       			
+       			}).bindTooltip(	//ICON
        					tooltip_string,			//TOOLTIP HTML
        					{direction: 'auto', 		//
        					permanent: false, 		//
        					sticky: false}).addTo(myMap);	//
+       		
+       		//INFORMATION TOGGLE		
+		marker.on('mouseover', function(event){
+			const info_html = document.createElement("div");
+			info_html.textContent = information_string;
+			info_html.setAttribute("id", "temporary_string");
+			information_div.append(info_html);
+			//Highlight
+			const highlight = L.rectangle(rectangle_points, {color: "#dc143c", weight:1.0});
+			rectangles.addLayer(highlight);
+			
+		});
+		marker.on('mouseout', function(event){
+			const info_html = document.getElementById("temporary_string");
+			info_html.remove();
+			
+			//Highlight
+			rectangles.clearLayers();
+		});
+		
+		//RECTANGLE HIGH LIGHT TOGGLE
        	}
         
         //marker.setLatLng([0, 0]); //TAKES LATITUDE AND LONGITUDE
@@ -85,11 +119,23 @@ async function getmap(){
 		pharaohOption.setAttribute("value", item);
 		interaction_div_pharaoh.append(pharaohOption);
 	});
+	
+}
+
+async function dynastyChange(){
+
+}
+
+async function pharaohChange(){
+
+}
+
+//
+function resetddl(dropdownID){
+
 }
 
 function getddl(){
-	console.log(dynastyList);
-	
 	//CHECKING FOR DUPLICATES//
        		/*console.log("Dynasties:");
        		console.log(dynastyList);

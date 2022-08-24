@@ -42,4 +42,27 @@ app.get('/api', (request, response) => {
 	});
 });
 
+app.post('/pharaohs', (request, response) => {
+	const select = request.body;
+	database.find({pharaoh: select.pharaoh}, (err, data) => {
+		if(err){
+			response.end();
+			return;
+		}
+		response.json(data);
+	});
+});
+
+app.post('/dynasties', (request, response) => {
+	const select = request.body;
+	database.find({dynasty: select.dynasty}, (err, data) => {
+		if(err){
+			response.end();
+			return;
+		}
+		response.json(data);
+	});
+});
+
+
 

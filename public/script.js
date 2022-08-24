@@ -6,8 +6,10 @@ const attribution = "&copy; <a href='https://www.openstreetmap.org/copyright'>Op
 const tile_url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const tiles = L.tileLayer(tile_url, { attribution }); 
 tiles.addTo(myMap);
-const rectangles = L.layerGroup([], {attribution }).addTo(myMap);
 
+//Layer groups to store high lights
+const rectangles = L.layerGroup([], { attribution }).addTo(myMap);
+const option_highlights = L.layerGroup([], { attribution }).addTo(myMap);
 
 const interaction_div_dynasty = document.getElementById("dynasty");
 const interaction_div_pharaoh = document.getElementById("pharaoh");
@@ -16,8 +18,6 @@ const information_div =  document.getElementById("info");
 
 const pharaohList = [];
 const dynastyList = [];
-
-/*const highlightGroup = L.layergroup();*/ 
 
 
 const pyramid_icon = L.icon({
@@ -123,15 +123,75 @@ async function getmap(){
 }
 
 async function dynastyChange(){
-
+	const select = document.getElementById("dynasty");
+	const dynasty = select.options[select.selectedIndex].value;
+	
+	
+	option_highlights.clearLayers();
+	resetddl();
+	const data = {dynasty};
+	//console.log("Test here:");
+	//console.log(JSON.stringify(data));
+	const options = {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(data)
+	};
+	
+	const response = await fetch('/dynasties', options);
+	const json_data = await response.json();
+	
+	for (item of json_data){
+		const long = parseFloat(item.longitude);
+       		const lat = parseFloat(item.latitude);
+            		
+       		const highlight_points = [[lat + 0.3, long - 0.3] , [lat - 0.3, long + 0.3]];
+       		const closer_highlight = [[lat + 0.009, long - 0.009] , [lat - 0.009, long + 0.009]];
+       		const highlight = L.rectangle(highlight_points, {color: "#1100BB", weight:1.0});
+       		const highlight_two = L.rectangle(closer_highlight, {color: "#AEF359", weight:1.0});
+		option_highlights.addLayer(highlight);
+		option_highlights.addLayer(highlight_two);
+	}
 }
 
 async function pharaohChange(){
-
+	const select = document.getElementById("pharaoh");
+	const pharaoh = select.options[select.selectedIndex].value;
+	
+	
+	option_highlights.clearLayers();
+	resetddl();
+	const data = {pharaoh};
+	//console.log("Test here:");
+	//console.log(JSON.stringify(data));
+	const options = {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(data)
+	};
+	
+	const response = await fetch('/pharaohs', options);
+	const json_data = await response.json();
+	
+	for (item of json_data){
+		const long = parseFloat(item.longitude);
+       		const lat = parseFloat(item.latitude);
+       		
+       		const highlight_points = [[lat + 0.3, long - 0.3] , [lat - 0.3, long + 0.3]];
+       		const closer_highlight = [[lat + 0.009, long - 0.009] , [lat - 0.009, long + 0.009]];
+       		const highlight = L.rectangle(highlight_points, {color: "#1100BB", weight:1.0});
+       		const highlight_closer = L.rectangle(closer_highlight, {color: "#AEF349", weight:1.0});
+		option_highlights.addLayer(highlight);
+		option_highlights.addLayer(closer_highlight);
+	}
 }
 
 //
-function resetddl(dropdownID){
+function resetddl(){
 
 }
 

@@ -147,12 +147,15 @@ async function dynastyChange(){
 		const long = parseFloat(item.longitude);
        		const lat = parseFloat(item.latitude);
             		
-       		const highlight_points = [[lat + 0.3, long - 0.3] , [lat - 0.3, long + 0.3]];
-       		const closer_highlight = [[lat + 0.009, long - 0.009] , [lat - 0.009, long + 0.009]];
-       		const highlight = L.rectangle(highlight_points, {color: "#1100BB", weight:1.0});
-       		const highlight_two = L.rectangle(closer_highlight, {color: "#AEF359", weight:1.0});
-		option_highlights.addLayer(highlight);
-		option_highlights.addLayer(highlight_two);
+       		const first_highlight = [[lat + 0.3, long - 0.3] , [lat - 0.3, long + 0.3]];	//First Highlight
+       		const second_highlight = [[lat + 0.01, long - 0.01] , [lat - 0.01, long + 0.01]]; //Second Highlight
+       		const third_highlight = [[lat + 0.003, long - 0.003] , [lat - 0.003, long + 0.003]]; //Third Highlight
+       		const highlight_layer_one = L.rectangle(first_highlight, {color: "#016064", weight:3.0, fill: false}); //Ocean
+       		const highlight_layer_two = L.rectangle(second_highlight, {color: "#2832C2", weight:2.0, fill: false}); //Cobalt
+       		const highlight_layer_three = L.rectangle(third_highlight, {color: "#82EEFD", weight:1.0}); //Arctic
+		option_highlights.addLayer(highlight_layer_one);
+		option_highlights.addLayer(highlight_layer_two);
+		option_highlights.addLayer(highlight_layer_three);
 	}
 }
 
@@ -160,6 +163,10 @@ async function pharaohChange(){
 	const select = document.getElementById("pharaoh");
 	const pharaoh = select.options[select.selectedIndex].value;
 	
+	if(pharaoh == "All"){
+		option_highlights.clearLayers();
+		return;
+	}
 	
 	option_highlights.clearLayers();
 	resetddl();
@@ -181,12 +188,15 @@ async function pharaohChange(){
 		const long = parseFloat(item.longitude);
        		const lat = parseFloat(item.latitude);
        		
-       		const highlight_points = [[lat + 0.3, long - 0.3] , [lat - 0.3, long + 0.3]];
-       		const closer_highlight = [[lat + 0.009, long - 0.009] , [lat - 0.009, long + 0.009]];
-       		const highlight = L.rectangle(highlight_points, {color: "#1100BB", weight:1.0});
-       		const highlight_closer = L.rectangle(closer_highlight, {color: "#AEF349", weight:1.0});
-		option_highlights.addLayer(highlight);
-		option_highlights.addLayer(closer_highlight);
+       		const first_highlight = [[lat + 0.3, long - 0.3] , [lat - 0.3, long + 0.3]];	//First Highlight
+       		const second_highlight = [[lat + 0.01, long - 0.01] , [lat - 0.01, long + 0.01]]; //Second Highlight
+       		const third_highlight = [[lat + 0.003, long - 0.003] , [lat - 0.003, long + 0.003]]; //Third Highlight
+       		const highlight_layer_one = L.rectangle(first_highlight, {color: "#016064", weight:3.0, fill:false}); //Ocean
+       		const highlight_layer_two = L.rectangle(second_highlight, {color: "#2832C2", weight:2.0, fill:false}); //Cobalt
+       		const highlight_layer_three = L.rectangle(third_highlight, {color: "#82EEFD", weight:1.0}); //Arctic
+		option_highlights.addLayer(highlight_layer_one);
+		option_highlights.addLayer(highlight_layer_two);
+		option_highlights.addLayer(highlight_layer_three);
 	}
 }
 

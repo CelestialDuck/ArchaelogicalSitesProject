@@ -126,9 +126,16 @@ async function dynastyChange(){
 	const select = document.getElementById("dynasty");
 	const dynasty = select.options[select.selectedIndex].value;
 	
+	const other_select = document.getElementById("pharaoh");
+	if(pharaoh == "All"){
+		option_highlights.clearLayers();
+		resetddl(other_select);
+		return;
+	}
 	
 	option_highlights.clearLayers();
-	resetddl();
+	resetddl(other_select);
+	
 	const data = {dynasty};
 	//console.log("Test here:");
 	//console.log(JSON.stringify(data));
@@ -162,14 +169,15 @@ async function dynastyChange(){
 async function pharaohChange(){
 	const select = document.getElementById("pharaoh");
 	const pharaoh = select.options[select.selectedIndex].value;
-	
+	const other_select = document.getElementById("dynasty");
 	if(pharaoh == "All"){
 		option_highlights.clearLayers();
+		resetddl(other_select);
 		return;
 	}
 	
 	option_highlights.clearLayers();
-	resetddl();
+	resetddl(other_select);
 	const data = {pharaoh};
 	//console.log("Test here:");
 	//console.log(JSON.stringify(data));
@@ -201,8 +209,9 @@ async function pharaohChange(){
 }
 
 //
-function resetddl(){
-
+function resetddl(select_option){
+	select_option.selectedIndex = 0;
+	return;
 }
 
 function getddl(){

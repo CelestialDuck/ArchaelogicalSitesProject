@@ -53,8 +53,8 @@ async function getmap(){
        		item.location+
        		"</p>";
        		//FOR : INFORMATION GENERAL
-       		const info_gen = "Name: " + item.modernname + "\tPharaoh: " +item.pharaoh+ "\nDynasty: " +
-					item.dynasty + "\tLocation: " + item.location + "\tMaterial:" + item.mat;
+       		const info_gen_string = "Name: " + item.modernname + " | Pharaoh: " +item.pharaoh+ " | Dynasty: " +
+					item.dynasty + " | Location: " + item.location + " | Material: " + item.mat;
        		// FOR: INFORMATION IMAGE
        		let pyramid_image = "";
        		
@@ -69,7 +69,8 @@ async function getmap(){
        		}
        		//FOR: INFORMATION STATS
        		
-       		const info_sts = "Length: " + item.length + " Width: " + item.width + " Height: " + item.height;
+       		const info_sts_string = "Length: " + item.length + "m | Width: " + item.width + "m | Height: " + item.height + "m";
+       		const info_sts_stringtwo = "Slope: "+item.slope+"° | Volume: "+item.volume+"m³";
        		
        		const long = parseFloat(item.longitude);
        		const lat = parseFloat(item.latitude);
@@ -98,14 +99,26 @@ async function getmap(){
        		
        		//INFORMATION TOGGLE		
 		marker.on('mouseover', function(event){
-			information_div_gen.textContent = info_gen;			//<-------------PYRAMID INFORMATION CODE GOES HERE//
+			const info_gen = document.createElement("div");
+			info_gen.textContent = info_gen_string;
+			info_gen.setAttribute('id', "temp_info");
+			information_div_gen.append(info_gen);			//<-------------PYRAMID INFORMATION CODE GOES HERE//
 			
 			const info_img = document.createElement('img');
 			info_img.setAttribute('src', pyramid_image);
-			info_img.setAttribute('id', "temp_image")
+			info_img.setAttribute('id', "temp_image");
 			information_div_img.append(info_img);
 			
-			information_div_sts.textContent = info_sts;
+			const info_sts = document.createElement("p");
+			info_sts.textContent = info_sts_string;
+			info_sts.setAttribute('id', "temp_stats");
+			information_div_sts.append(info_sts);
+			
+			const info_sts_two = document.createElement("p");
+			info_sts_two.textContent = info_sts_stringtwo;
+			info_sts_two.setAttribute('id', "temp_stats_two");
+			information_div_sts.append(info_sts_two);
+			
 			//Highlight
 			const highlight = L.rectangle(rectangle_points, {color: "#dc143c", weight:1.0});
 			rectangles.addLayer(highlight);
@@ -113,11 +126,14 @@ async function getmap(){
 			
 		});
 		marker.on('mouseout', function(event){
-			information_div_gen.textContent = "";
+			const info_gen = document.getElementById("temp_info");
 			const info_img = document.getElementById("temp_image");
+			const info_sts = document.getElementById("temp_stats");
+			const info_sts_two = document.getElementById("temp_stats_two");
+			info_gen.remove();
 			info_img.remove();
-			
-			infortmation_div_sts.textContent = "";
+			info_sts.remove();
+			info_sts_two.remove();
 			rectangles.clearLayers();
 		});
 		

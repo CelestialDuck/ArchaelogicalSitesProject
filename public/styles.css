@@ -13,22 +13,27 @@ body {
 
 label {
 	text-transform: uppercase;
-	margin-left: 15px;
-	margin-top: 10px;
+	margin-left: 5px;
 	letter-spacing: 1px;
 	font-size: 25px;
+	margin-bottom: 5px;
 }
 
+#information_general{}
+
+#information_image{}
+
+#information_stats{}
+
 #options_help_text {
-	font-size: 15px;
-	margin-left: 16px;
+	margin-left: 5px;
 }
 
 #dynasty {
-	margin: 10px;
+	margin-bottom: 10px;
 }
 #pharaoh {
-	margin: 10px;
+	margin-bottom: 10px;
 }
 
 #info{
@@ -46,6 +51,7 @@ label {
 	height: 675px;
 	border: 10px solid black;
 	margin: 5px;
+	
 }
  
 #interact{

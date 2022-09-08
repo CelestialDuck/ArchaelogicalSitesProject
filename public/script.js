@@ -14,7 +14,10 @@ const option_highlights = L.layerGroup([], { attribution }).addTo(myMap);
 const interaction_div_dynasty = document.getElementById("dynasty");
 const interaction_div_pharaoh = document.getElementById("pharaoh");
 
-const information_div =  document.getElementById("info");
+const information_div = document.getElementById("info");
+const information_div_gen = document.getElementById("information_general");
+const information_div_img = document.getElementById("information_image");
+const information_div_sts = document.getElementById("information_stats");
 
 const pharaohList = [];
 const dynastyList = [];
@@ -37,7 +40,6 @@ async function getmap(){
         const response = await fetch('/api');
         const data = await response.json();
        	for (item of data){
-       		const information_string = "LOREM IPSUM TEXT";
        		//variables in use
        		const tooltip_string = "<h2>"+
        		item.modernname+
@@ -50,6 +52,24 @@ async function getmap(){
        		"</p> <p> Location: "+
        		item.location+
        		"</p>";
+       		//FOR : INFORMATION GENERAL
+       		const info_gen = "Name: " + item.modernname + "\tPharaoh: " +item.pharaoh+ "\nDynasty: " +
+					item.dynasty + "\tLocation: " + item.location + "\tMaterial:" + item.mat;
+       		// FOR: INFORMATION IMAGE
+       		let pyramid_image = "";
+       		
+       		if (item.type == "Step"){
+       			pyramid_image = "map_icons/step.png";
+       		} else if (item.type == "Smooth-sided") {
+       			pyramid_image = "map_icons/rough.png";
+       		} else if (item.type == "Smooth-faced") {
+       			pyramid_image = "map_icons/smooth.png";
+       		} else {
+       			pyramid_image = "map_icons/none.png";
+       		}
+       		//FOR: INFORMATION STATS
+       		
+       		const info_sts = "Length: " + item.length + " Width: " + item.width + " Height: " + item.height;
        		
        		const long = parseFloat(item.longitude);
        		const lat = parseFloat(item.latitude);
@@ -78,20 +98,26 @@ async function getmap(){
        		
        		//INFORMATION TOGGLE		
 		marker.on('mouseover', function(event){
-			const info_html = document.createElement("div");
-			info_html.textContent = information_string;
-			info_html.setAttribute("id", "temporary_string");
-			information_div.append(info_html);
+			information_div_gen.textContent = info_gen;			//<-------------PYRAMID INFORMATION CODE GOES HERE//
+			
+			const info_img = document.createElement('img');
+			info_img.setAttribute('src', pyramid_image);
+			info_img.setAttribute('id', "temp_image")
+			information_div_img.append(info_img);
+			
+			information_div_sts.textContent = info_sts;
 			//Highlight
 			const highlight = L.rectangle(rectangle_points, {color: "#dc143c", weight:1.0});
 			rectangles.addLayer(highlight);
 			
+			
 		});
 		marker.on('mouseout', function(event){
-			const info_html = document.getElementById("temporary_string");
-			info_html.remove();
+			information_div_gen.textContent = "";
+			const info_img = document.getElementById("temp_image");
+			info_img.remove();
 			
-			//Highlight
+			infortmation_div_sts.textContent = "";
 			rectangles.clearLayers();
 		});
 		

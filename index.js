@@ -24,7 +24,14 @@ CSVToJSON().fromFile('data/pyramids.csv').then(response => {
 			'ancientname': item.AncientName,
 			'modernname': item.ModernName,
 			'dynasty': item.Dynasty,
-			'location': item.Site
+			'location': item.Site,
+			'type': item.Type,
+			'mat': item.Material,
+			'length': item.Base1,
+			'width': item.Base2,
+			'height': item.Height,
+			'slope': item.Slope,
+			'volume': item.Volume
 	};
 		//console.log(entry);
 		database.insert(entry);

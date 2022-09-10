@@ -15,8 +15,44 @@ label {
 	text-transform: uppercase;
 	margin-left: 5px;
 	letter-spacing: 1px;
-	font-size: 2vw;
+	font-size: 1.3em;
 	margin-bottom: 5px;
+}
+
+@media (max-width: 500px){
+	label{
+		font-size: 5vw;
+	}
+	p{
+		font-size: 4vw;
+	}
+	
+	.colcontainer{
+		display: grid;
+	}
+	.rowcontainer{
+		display: grid;
+	}
+	
+	#map{
+		float:right;
+		width: 100%;
+	}
+	
+	#options_help_text {
+		font-size: 0.5em;
+	}
+	
+}
+
+.colcontainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.rowcontainer {
+	display: grid;
+	
 }
 
 #temp_info{
@@ -46,24 +82,22 @@ label {
 }
 
 #dynasty {
-	margin-bottom: 10px;
+	margin-bottom:5;
 }
 #pharaoh {
-	margin-bottom: 10px;
+	margin-bottom:5;
 }
 
 #info{
 	float:right;
-	width:55%;
 	height: 500px;
 	border: 10px solid black;
 	margin-right:5px;
 	margin-top: 5px;
 	background:white;
 }
-#map{ 
-	float:left;
-	width:40%;
+#map{ 	
+	float: left;
 	height: 675px;
 	border: 10px solid black;
 	margin: 5px;
@@ -71,11 +105,10 @@ label {
 }
  
 #interact{
- 	float:left;
- 	width: 55%;
+ 	float:right;
  	height: 150px;
  	border: 10px solid black;
  	background:white;
  	margin-top: 5px;
- 	margin-left: 13px;
+ 	margin-right: 5px;
  }

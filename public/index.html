@@ -18,37 +18,44 @@
 	</head>
 	<body>
 		<h1>Pyramid Locations</h1>
-		<!-- Map Div-->
-		<div id="map">
-		</div>
-		<!-- Info Div -->
-		<div id="info">
-			<label>Information</label>
-			<div id='information_general'>
-				<p style='font-weight:bold;text-align:center'>General</p>
-			</div> 
-			<div id='information_image'>
-				<p style='font-weight:bold;text-align:center'>Type of Pyramid</p>
+		<div class='colcontainer'>
+			<!-- Map Div-->
+			<div id="map" class="containerOne">
 			</div>
-			<div id='information_stats'>
-				<p style='font-weight:bold;text-align:center'>Statistics</p>
+			<div class="containerOne rowcontainer">
+				<!-- Info Div -->
+				<div id="info" class="containerTwo">
+					<label>Information</label>
+					<div id='information_general'>
+						<p style='font-weight:bold;text-align:center'>General</p>
+					</div> 
+					<div id='information_image'>
+						<p style='font-weight:bold;text-align:center'>Type of Pyramid</p>
+					</div>
+					<div id='information_stats'>
+						<p style='font-weight:bold;text-align:center'>Statistics</p>
+					</div>
+				</div>
+				<!-- Interaction Div -->
+				<div id="interact" class="containerTwo">
+					<label>Options</label>
+					<p id='options_help_text'>Show pyramids from specific dynasty or pyramids belonging to a specific pharaoh.
+					</p>
+					<br>
+					<div style="display:flex;">
+						<label font-size=15px> Dynasties: </label>
+						<select style="display:flex;" name='dynasties' id='dynasty'>
+							<option value="filler">All</option>
+						</select>
+						<label font-size=15px> Pharaohs: </label>
+						<select name='pharaohs' id='pharaoh'>
+							<option value="filler">All</option>
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
-		<!-- Interaction Div -->
-		<div id="interact">
-			<label>Options</label>
-			<p id='options_help_text'>Show pyramids from specific dynasty or pyramids belonging to a specific pharaoh.</p>
-			<br>
-			<label font-size=15px> Dynasties: </label>
-			<select name='dynasties' id='dynasty'>
-				<option value="filler">All</option>
-			</select>
-			<label font-size=15px> Pharaohs: </label>
-			<select name='pharaohs' id='pharaoh'>
-				<option value="filler">All</option>
-			</select>
-			
-		</div>
+		<p></p>
 		<script src="script.js"></script>
 	</body>
 </html>

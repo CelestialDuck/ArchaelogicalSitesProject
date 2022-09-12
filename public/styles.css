@@ -3,18 +3,21 @@
 .mainpage{
 	opacity: 0;
 	transition: opacity 1s ease-in;
+	
 }
 
 .loadpage{
 	opacity: 1;
-	display: block flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
+	display: grid;
+	min-height: 100%;
+	height: 100vh;
+	width: 100vw;
 }
 
 .square-container{
 	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .square-container > div:nth-child(2){
@@ -26,10 +29,12 @@
 }
 
 .square{
+
 	width: 0;
 	height: 0;
 	background-color: white;
 	margin: 1em;
+	bottom: 50%;
 	border-top: 2em solid #795C34; /*Peanut*/
 	border-bottom: 2em solid #4A2511; /*Pecan*/
 	border-left: 2em solid #65350F; /*Caramel*/

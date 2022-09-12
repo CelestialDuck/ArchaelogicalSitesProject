@@ -50,7 +50,7 @@ function init(){
 		setTimeout(() => {
 			main.style.opacity = 1
 			}, 50);
-		}, 3000);
+		}, 5000);
 	myMap.invalidateSize();
 }
 

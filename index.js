@@ -5,7 +5,9 @@ const FileSystem = require('fs');
 
 const app = express();
 
-app.listen(3000, () => console.log("Listening to server, PORT: 3000"));
+var PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => console.log("Listening to server, PORT: 3000"));
 app.use(express.static('public'));
 app.use(express.json());
 

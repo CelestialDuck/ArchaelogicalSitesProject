@@ -11,6 +11,7 @@ tiles.addTo(myMap);
 const rectangles = L.layerGroup([], { attribution }).addTo(myMap);
 const option_highlights = L.layerGroup([], { attribution }).addTo(myMap);
 
+//DOM ELEMENTS IN USE
 const interaction_div_dynasty = document.getElementById("dynasty");
 const interaction_div_pharaoh = document.getElementById("pharaoh");
 
@@ -25,12 +26,20 @@ const dynastyList = [];
 const main = document.querySelector(".mainpage");
 const load = document.querySelector(".loadpage");
 
+//Pyramid Icon
 const pyramid_icon = L.icon({
 	iconUrl: 'map_icons/pyramid_icon.png',
 	iconSize: [20, 20],
 	iconAnchor: [10,10]
 });
 
+//Event Listeners
+interaction_div_dynasty.addEventListener("change", dynastyChange);
+interaction_div_pharaoh.addEventListener("change", pharaohChange);
+
+
+//Function: init()
+//Replaces loading screen
 function init(){
 	setTimeout(() => {
 		load.style.opacity = 0;
@@ -45,21 +54,16 @@ function init(){
 	myMap.invalidateSize();
 }
 
-//Starts the application
-getmap();
-init();
-
-
-interaction_div_dynasty.addEventListener("change", dynastyChange);
-interaction_div_pharaoh.addEventListener("change", pharaohChange);
 
 
 
+//Function: getmap() | Async
+//Receives data directly from the server, data is used to populate the map.
 async function getmap(){
         const response = await fetch('/api');
         const data = await response.json();
        	for (item of data){
-       		//variables in use
+       		//Tooltip string for map marker.
        		const tooltip_string = "<h2>"+
        		item.modernname+
        		"</h2> <p> Ancient Name: "+
@@ -71,9 +75,11 @@ async function getmap(){
        		"</p> <p> Location: "+
        		item.location+
        		"</p>";
+       		
        		//FOR : INFORMATION GENERAL
        		const info_gen_string = "Name: " + item.modernname + " | Pharaoh: " +item.pharaoh+ " | Dynasty: " +
 					item.dynasty + " | Location: " + item.location + " | Material: " + item.mat;
+					
        		// FOR: INFORMATION IMAGE
        		let pyramid_image = "";
        		
@@ -86,6 +92,7 @@ async function getmap(){
        		} else {
        			pyramid_image = "map_icons/none.png";
        		}
+       		
        		//FOR: INFORMATION STATS
        		
        		const info_sts_string = "Length: " + item.length + "m | Width: " + item.width + "m | Height: " + item.height + "m";
@@ -116,12 +123,13 @@ async function getmap(){
        					permanent: false, 		//
        					sticky: false}).addTo(myMap);	//
        		
-       		//INFORMATION TOGGLE		
+       		//INFORMATION TOGGLE
+       		//Mouseover and mouse out events, used to populate the Information div.
 		marker.on('mouseover', function(event){
 			const info_gen = document.createElement("div");
 			info_gen.textContent = info_gen_string;
 			info_gen.setAttribute('id', "temp_info");
-			information_div_gen.append(info_gen);			//<-------------PYRAMID INFORMATION CODE GOES HERE//
+			information_div_gen.append(info_gen);			
 			
 			const info_img = document.createElement('img');
 			info_img.setAttribute('src', pyramid_image);
@@ -156,20 +164,15 @@ async function getmap(){
 			rectangles.clearLayers();
 		});
 		
-		//RECTANGLE HIGH LIGHT TOGGLE
        	}
         
-        //marker.setLatLng([0, 0]); //TAKES LATITUDE AND LONGITUDE
-        //document.getElementById("lat").textContent = latitude;
-        //document.getElementById("lon").textContent = longitude;
-	//console.log(data);
+        //Sorting the pharaoh and dynasty so no value is repeated. Once sorted, drop down lists are populated.
 	dynastyList.sort(function(a,b){return a - b});
 	pharaohList.sort();
 	//Populate the drop down list here:
 	dynastyList.forEach(function(item) {
 		const dynastyOption = document.createElement("option");
 		dynastyOption.textContent = item;
-		//dynastyOption.setAttribute("class", "dynasty_ddl") //Class element used for finding unique values in the list
 		dynastyOption.setAttribute("value", item);
 		interaction_div_dynasty.append(dynastyOption);
 	});
@@ -183,6 +186,9 @@ async function getmap(){
 	
 }
 
+//Functions: dynastyChange() and pharaohChange()
+//Both functions will query through the dynasties or pharaoh's based on the users selected value.
+//Once all map elements have been found, highlights are appended to the map for each.
 async function dynastyChange(){
 	const select = document.getElementById("dynasty");
 	const dynasty = select.options[select.selectedIndex].value;
@@ -269,9 +275,15 @@ async function pharaohChange(){
 	}
 }
 
-//
+//Function: resetddl()
+//Params: select_option: Takes the selected option on the drop down menu from the interaction div
+//Simply for resetting the other drop down menu if it has a selected value
 function resetddl(select_option){
 	select_option.selectedIndex = 0;
 	return;
 }
 
+
+//Application starts here: 
+getmap();
+init();

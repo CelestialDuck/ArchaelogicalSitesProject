@@ -74,6 +74,7 @@ h5 {
 	color: white; 
 }
 
+/*Mobile CSS properties*/
 @media (max-width: 500px){
 	label{
 		font-size: 5vw;
@@ -95,7 +96,7 @@ h5 {
 	}
 	
 	#options_help_text {
-		font-size: 0.5em;
+		font-size: 0.8em;
 	}
 	
 }

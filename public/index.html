@@ -1,3 +1,6 @@
+<!--Pyramid Locations-->
+<!--Author: Dan S-->
+<!--Project Description: Node JS application displaying egyptian pyramids, data from kaggle: https://kaggle.com/datasets/lsind18/egyptianpyramids-->
 <!DOCTYPE html>
 <html lang="en">	
 	<head>
@@ -8,15 +11,16 @@
 			Pyramid Locations
 		</title>
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-        crossorigin=""/>
-        <!-- Make sure you put this AFTER Leaflet's CSS -->
-        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-        crossorigin=""></script>
-        	<link rel="stylesheet" href="styles.css" />
+		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+		crossorigin=""/>
+		<!-- Make sure you put this AFTER Leaflet's CSS -->
+		<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+		integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+		crossorigin=""></script>
+		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
+		<!--Loading Page DOM elements-->
 		<div class="loadpage">
 			<div class = "square-container">
 				<div class="square"></div>
@@ -24,6 +28,7 @@
 				<div class="square"></div> 
 			</div>
 		</div>
+		<!--Main Page DOM elements-->
 		<div class="mainpage">
 			<h1>Pyramid Locations</h1>
 			<div class='colcontainer'>
@@ -54,19 +59,19 @@
 						<div style="display:flex;">
 							<label font-size=15px> Dynasties: </label>
 							<select style="display:flex;" name='dynasties' id='dynasty'>
-								<option value="filler">All</option>
+								<option value="filler">None</option>
 							</select>
 							<label font-size=15px> Pharaohs: </label>
 							<select name='pharaohs' id='pharaoh'>
-								<option value="filler">All</option>
+								<option value="filler">None</option>
 							</select>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!--Credit Message-->
 			<h5>Database taken from kaggle: Pyramids of Ancient Egypt | https://kaggle.com/datasets/lsind18/egyptianpyramids</h5>
 		</div>
-		
 		<script src="script.js"></script>
 	</body>
 </html>
